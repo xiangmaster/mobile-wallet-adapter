@@ -85,6 +85,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
+          # validation-only: route inference to lab endpoint
+          ANTHROPIC_BASE_URL: ${{ vars.ANTHROPIC_BASE_URL }}
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -319,7 +321,7 @@ jobs:
           # Cheapest tier for the always-on job: Sonnet + low effort. Turn UP by
           # raising --effort (low -> medium) if classification quality slips.
           claude_args: |
-            --model claude-sonnet-5
+            --model claude-sonnet-4-6
             --effort low
             --max-turns 20
             --allowedTools "Write,Bash(gh issue view:*),Bash(gh issue edit:*),Bash(gh issue close:*),Bash(gh issue comment:*),Bash(gh label:*),Bash(gh api:*)"
